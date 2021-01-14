@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 const RenderComments = ({ comments, addComment, dishId }) => {
     return (
@@ -26,14 +27,31 @@ const RenderComments = ({ comments, addComment, dishId }) => {
     )
 }
 
-const RenderDish = ({ dish }) => {
-
-    return (
-        dish && <Card>
-            <CardImg top src={dish.image} alt={dish.name} />
+const RenderDish = (props) => {
+    if (props.isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.errMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.dish != null) return (
+        props.dish && <Card>
+            <CardImg top src={props.dish.image} alt={props.dish.name} />
             <CardBody>
-                <CardTitle>{dish.name}</CardTitle>
-                <CardText>{dish.description}</CardText>
+                <CardTitle>{props.dish.name}</CardTitle>
+                <CardText>{props.dish.description}</CardText>
             </CardBody>
         </Card>
 
