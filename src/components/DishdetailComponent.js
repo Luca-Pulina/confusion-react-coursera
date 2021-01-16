@@ -7,6 +7,7 @@ import {
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const RenderComments = ({ comments, addComment, dishId }) => {
     return (
@@ -48,7 +49,7 @@ const RenderDish = (props) => {
     }
     else if (props.dish != null) return (
         props.dish && <Card>
-            <CardImg top src={props.dish.image} alt={props.dish.name} />
+            <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
             <CardBody>
                 <CardTitle>{props.dish.name}</CardTitle>
                 <CardText>{props.dish.description}</CardText>
